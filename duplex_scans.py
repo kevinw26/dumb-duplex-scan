@@ -50,6 +50,9 @@ class DumbPDF:
             stream_decode_level=StreamDecodeLevel.generalized,
             object_stream_mode=ObjectStreamMode.generate)
 
+    def page_count(self):
+        return len(self.pdf.pages)
+
 
 if __name__ == '__main__':
     # parse arguments
@@ -108,7 +111,18 @@ if __name__ == '__main__':
     # we should have a front and back for each set; if not, raise
     null_fronts_or_backs = wide_files[wide_files[['fronts', 'backs']].isnull().any(axis=1)]
     if len(null_fronts_or_backs) > 0:
-        raise ValueError(rf'found null fronts or backs as follows:\n\n{null_fronts_or_backs}')
+        raise ValueError(rf'found null fronts or backs files:\n\n{null_fronts_or_backs}')
+
+    # validate that all stems have the same length of pages
+    page_counts = wide_files.copy()
+    page_counts['fronts_pp'] = page_counts['fronts'].apply(lambda i: i.page_count())
+    page_counts['backs_pp'] = page_counts['backs'].apply(lambda i: i.page_count())
+    bad_page_counts = page_counts.loc[
+        page_counts['fronts_pp'] != page_counts['backs_pp'],
+        ['fronts_pp', 'backs_pp']]
+    if len(bad_page_counts) > 0:
+        raise ValueError(
+            rf'found stems with unequal number of pages for interleave:\n\n{bad_page_counts}')
 
     # for each stem create a concat version
     for i, row in tqdm(wide_files.iterrows(), total=len(wide_files), desc='interleaving files'):
