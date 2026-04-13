@@ -6,7 +6,7 @@ Thus, if I am trying to create a PDF with the fronts and backs of my `annoying s
 * `annoying stack fronts.pdf` and
 * `annoying stack backs reversed.pdf`
 
-The backs are reversed because all I did was flip the entire stack of documents over. This means the last becomes the first.
+The backs are reversed because all I did was flip the entire stack of documents over. This means the last becomes the first. You must name your files with these suffixes.
 
 With this utility I can then:
 
