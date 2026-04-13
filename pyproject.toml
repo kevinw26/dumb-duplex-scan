@@ -1,0 +1,10 @@
+[project]
+name = "dumb-duplex-scan"
+version = "0.1.0"
+description = "Add your description here"
+requires-python = ">=3.12"
+dependencies = [
+    "pandas",
+    "pikepdf",
+    "tqdm>=4.67.3",
+]
