@@ -12,7 +12,8 @@ With this utility I can then:
 
 ```
 uv run duplex_scans.py "annoying stacks fronts.pdf" "annoying stacks backs.pdf"
-# this will create a new file in the same location as the first file called "annoying stacks interleaved.pdf"
+# this will create a new file in the same location as the first file
+# called "annoying stacks interleaved.pdf"
 ```
 
 Or, if I have many such documents, I can batch them, if they are in this format:
